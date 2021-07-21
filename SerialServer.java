@@ -32,5 +32,6 @@ public class SerialServer
         }
         f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         System.out.println("Server signing OFF");
+        ss.close();
     }
 }

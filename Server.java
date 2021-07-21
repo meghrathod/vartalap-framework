@@ -19,5 +19,6 @@ public class Server {
         }
         nos.println(str);
         System.out.println("Server Singing OFF");
+        ss.close();
     }
 }

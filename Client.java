@@ -38,6 +38,7 @@ public class Client {
             str = nis.readLine();
         }
         ta.append("\n Client Signing Off");
+        soc.close();
 
     }
 
