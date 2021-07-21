@@ -30,6 +30,15 @@ public class Client {
         L1 l1 = new L1(tf, ta, nos);
         b1.addActionListener(l1);
         tf.addActionListener(l1);
+
+        BufferedReader nis = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+        String str = nis.readLine();
+        while(!str.equals("End")){
+            ta.append(str+"\n");
+            str = nis.readLine();
+        }
+        ta.append("\n Client Signing Off");
+
     }
 
 }
@@ -50,10 +59,11 @@ class L1 implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String str = tf.getText();
         ta.append(str + "\n");
-        tf.setText("");
         nos.println(str);
+        tf.setText("");
         if (str.equals("End")) {
-            System.exit(1);
+            nos.close();
+            System.exit(0);
         }
     }
 
