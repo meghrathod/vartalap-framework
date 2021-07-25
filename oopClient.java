@@ -7,17 +7,11 @@ import java.net.*;
 public class oopClient {
 
     public static void main(String[] args) throws Exception {
+        Chat first = new Chat("127.0.0.1", 9081);
+        Chat second = new Chat("127.0.0.1", 9082);
+        first.start();
+        second.start();
 
-        Connection C1 = new Connection("127.0.0.1", 9081);
-        ChatWindow W1 = new ChatWindow(C1);
-
-        String str = C1.nis.readLine();
-        while (!str.equals("End")) {
-            W1.ta.append(str + "\n");
-            str = C1.nis.readLine();
-        }
-        W1.ta.append("\n Client Signing Off");
-        C1.getSocket().close();
     }
 
 }
@@ -50,6 +44,33 @@ class Connection {
 
     public Socket getSocket(){
         return soc;
+    }
+}
+
+class Chat extends Thread{
+    String ip;
+    int port;
+    Chat(String addr, int port){
+        this.ip = addr;
+        this.port = port;
+    }
+    
+    @Override
+    public void run(){
+        Connection C1;
+        try {
+            C1 = new Connection(ip, port);
+            ChatWindow W1 = new ChatWindow(C1);
+            String str = C1.nis.readLine();
+            while (!str.equals("End")) {
+                W1.ta.append(str + "\n");
+                str = C1.nis.readLine();
+            }
+            W1.ta.append("\n Client Signing Off");
+            C1.getSocket().close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
